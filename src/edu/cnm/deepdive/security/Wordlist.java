@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Random;
-
+	/** @author David Martinez */
 public class Wordlist {
-
+  /** Phrase length recommendation. */
   public static final int RECOMMENDED_PHRASE_LEGNTH = 5;
-
+  /** Class path relative of the word list file. */
   public static final String WORD_LIST_FILE = "resources/eff_large_wordlist.txt";
 
   private static final String PROPERTIES_FILE = "resources/text.properties";
@@ -21,6 +21,8 @@ public class Wordlist {
   private static String errorMessage;
   private static String warningMessage;
 
+  /** Exception handling.
+   * @param args*/
   public static void main(String[] args) {
     try {
       loadResources();
@@ -58,6 +60,10 @@ public class Wordlist {
     }
   }
 
+  /**
+   * @param listPath
+   * @return
+   * @throws IOException */
   public static String[] getWordList(String listPath) throws IOException {
     try (BufferedReader reader = new BufferedReader(
         new InputStreamReader(Wordlist.class.getClassLoader().getResourceAsStream(listPath)))) {
@@ -68,6 +74,11 @@ public class Wordlist {
       return words.toArray(new String[]{});
     }
   }
+  
+  /** Randomly select and return a subset of the word list.
+   * @param numWords
+   * @param wordlist
+   * @return */
   public static String[] getRandomWords(int numWords, String[] wordlist) {
     String[] selection = new String[numWords];
     Random rng = new Random();
