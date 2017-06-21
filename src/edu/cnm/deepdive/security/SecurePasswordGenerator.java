@@ -22,7 +22,7 @@ public class SecurePasswordGenerator extends PasswordGenerator {
 	}
 
 		/**
-		 * Invokes {@link PasswordGenerator#PasswordGenerator(int, int) constructor.
+		 * Invokes {@link PasswordGenerator#PasswordGenerator(int, int)} constructor.
 		 * @param minLength
 		 * @param maxLength
 		 */
