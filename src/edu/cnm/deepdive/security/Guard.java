@@ -3,6 +3,8 @@
  */
 package edu.cnm.deepdive.security;
 
+import java.util.HashMap;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
@@ -11,7 +13,10 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * @author David Martinez
- *
+ * Pass command line arguments to a parser from Apache Commons library
+ * then instantiate and invoke the appropriate classes and methods to 
+ * generate the requested artifact.
+ * @param args Command line arguments, specifying generation options.
  */
 public class Guard {
 
@@ -19,17 +24,39 @@ public class Guard {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+		HashMap<String, Object> map = getOptions(args);
+		String artifact = generateArtifact(map);
+		emitArtifact(artifact);
+	/** Get options
+	 * 	Generate artifact
+	 *  Emit artifact
+	 */
 	}
 		
-	static CommandLine getOptions(String[] args) {
+	static HashMap<String, Object> getOptions(String[] args) {
 		try {
-			Option lengthOption = Option.builder("l"
-					+ "L").argName("length")
+			Option excludeUpperOption = Option.builder("b").longOpt("exclude-upper")
+		                                                     .hasArg(false)
+		                                                     .build();
+			Option excludeLowerOption = Option.builder("s").longOpt("exclude-lower")
+					                                       .hasArg(false)
+					                                       .build();
+			Option excludeNumberOption = Option.builder("n").longOpt("exclude-numbers")
+                                                            .hasArg(false)
+                                                            .build();
+			Option excludePunctuationOption = Option.builder("p").longOpt("exclude-punctuation")
+                                                           .hasArg(false)
+                                                           .build();
+			Option includeAmbiguous = Option.builder("a").longOpt("include-ambiguous")
+                                                         .hasArg(false)
+                                                         .build();
+	
+			
+			Option lengthOption = Option.builder("L").argName("length")
 													 .hasArg()
 													 .longOpt("length")
 													 .numberOfArgs(1)
-													 .type(Byte.class)
+													 .type(Number.class)
 													 .build();
 			Option delimiterOption = Option.builder("d").argName("delimiter")
 														.hasArg()
@@ -46,18 +73,28 @@ public class Guard {
 													   .build();
 		    Options opts = new Options().addOption(delimiterOption)
 		    						   .addOption(lengthOption)
-		    						   .addOption(wordListOption);
+		    						   .addOption(wordListOption)
+		    						   .addOption(excludeUpperOption)
+		    						   .addOption(excludeLowerOption)
+		    						   .addOption(excludePunctuationOption)
+		    						   .addOption(excludeNumberOption)
+		    						   .addOption(includeAmbiguous);
 			DefaultParser parser = new DefaultParser();
+			HashMap<String, Object> map = new HashMap<>();
 			CommandLine cmdLine = parser.parse(opts, args);
-			Object test = cmdLine.getParsedOptionValue("L"); // FIXME - debug statement
-			return cmdLine;
+			for (Option option : cmdLine.getOptions()) {
+				String opt = option.getOpt();
+				map.put(opt, cmdLine.getParsedOptionValue(opt));
+			};
+			
+			return map;
 		}   catch (ParseException ex) {
 			// TODO Handle this exception with usage display.
 			return null;
 		}
 	}
 	
-	static String generateArtifacte(CommandLine cmdLine) {
+	static String generateArtifact(HashMap<String, Object> map) {
 		return null; // FIXME
 	}
 	
