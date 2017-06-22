@@ -24,7 +24,8 @@ public class Guard {
 		
 	static CommandLine getOptions(String[] args) {
 		try {
-			Option lengthOption = Option.builder("l").argName("length")
+			Option lengthOption = Option.builder("l"
+					+ "L").argName("length")
 													 .hasArg()
 													 .longOpt("length")
 													 .numberOfArgs(1)
