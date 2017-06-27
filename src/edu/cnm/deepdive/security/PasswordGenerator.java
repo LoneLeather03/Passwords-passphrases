@@ -31,8 +31,9 @@ public class PasswordGenerator {
 	private boolean includeUpperCase = true;
 	private boolean includeLowerCase = true;
 	private boolean includeNumbers = true;
-	private boolean includePunctuation = false;
+	private boolean includePunctuation = true;
 	private boolean excludeAmbiguous = true;
+	private String delimiter = "";
 
 	/**
 	 * Test rig for generating passwords
@@ -74,14 +75,14 @@ public class PasswordGenerator {
 	 * @param IncludeLowerCase	Include lower case characters.
 	 * @param IncludeNumbers	Include numbers.
 	 * @param IncludePunctuation	Include punctuation.
-	 * @param IncludeAmbiguous 		Exclude the lower case "l" and upper case
+	 * @param ExcludeAmbiguous 		Exclude the lower case "l" and upper case
 	 * 								"O" characters.
 	 */
 	
 	public PasswordGenerator(int minLength, int maxLength,
 			boolean IncludeUpperCase, boolean IncludeLowerCase,
 			boolean IncludeNumbers, boolean IncludePunctuation,
-			boolean IncludeAmbiguous) {
+			boolean ExcludeAmbiguous) {
 		this(minLength, maxLength);
 			this.includeUpperCase = includeUpperCase;
 			this.includeLowerCase = includeLowerCase;

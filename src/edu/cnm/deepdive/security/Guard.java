@@ -71,6 +71,9 @@ public class Guard {
 													   .numberOfArgs(1)
 													   .type(String.class)
 													   .build();
+			Option modeOption = Option.builder("m").longOpt("password-mode")
+												   .hasArg(false)
+												   .build();
 		    Options opts = new Options().addOption(delimiterOption)
 		    						   .addOption(lengthOption)
 		    						   .addOption(wordListOption)
@@ -78,7 +81,8 @@ public class Guard {
 		    						   .addOption(excludeLowerOption)
 		    						   .addOption(excludePunctuationOption)
 		    						   .addOption(excludeNumberOption)
-		    						   .addOption(includeAmbiguous);
+		    						   .addOption(includeAmbiguous)
+		    						   .addOption(modeOption);
 			DefaultParser parser = new DefaultParser();
 			HashMap<String, Object> map = new HashMap<>();
 			CommandLine cmdLine = parser.parse(opts, args);
