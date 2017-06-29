@@ -15,6 +15,10 @@ import org.apache.commons.cli.ParseException;
  * @author David Martinez
  *
  */
+
+	// TODO Refine options: set length, set char set fields, include/exclude ambiguous, select chars,
+	//  combine chars, word list(default or user defined), select words, build phrase, return phrase.
+
 public class Options {
 	
 	private static final String OPTIONS_DESCRIPTION_BUNDLE = "resources/options";
@@ -116,5 +120,5 @@ public class Options {
 
 	}
 
-
-
+// TODO Put keys in options.properties add warnings to messages. Option in conflict, password mode delimiter,
+//password mode word case, extreme length
