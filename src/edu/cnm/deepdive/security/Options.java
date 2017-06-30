@@ -4,12 +4,15 @@
 package edu.cnm.deepdive.security;
 
 import java.util.HashMap;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.UnrecognizedOptionException;
 
 /**
  * @author David Martinez
@@ -20,10 +23,11 @@ import org.apache.commons.cli.ParseException;
 	//  combine chars, word list(default or user defined), select words, build phrase, return phrase.
 
 public class Options {
-	
-	private static final String OPTIONS_DESCRIPTION_BUNDLE = "resources/options";
-	
-	
+			public static final String JAR_FILE_NAME = "guard.jar";
+			private static final String OPTIONS_DESCRIPTION_BUNDLE = "resources/options";
+			private static final String MESSAGES_BUNDLE = "resources/messages";
+			private static final String FATAL_MESSAGE = "Not able to load messages bundles.";
+			private static final String MISSING_ARGUMENT_KEY = "error.missingargument.message";			
 			private static final String HELP_OPTION_KEY = "help.option";
 			private static final String LENGTH_OPTION_KEY = "length.option";
 		    private static final String DELIMITER_OPTION_KEY ="delimiter.option";
@@ -34,11 +38,25 @@ public class Options {
 		    private static final String EXCLUDE_DIGITS_OPTION_KEY = "exclude-digits.option";
 		    private static final String EXCLUDE_PUNCTUATION_OPTION_KEY ="exclude-punctuation.option";
 		    private static final String INCLUDE_AMBIGUOUS_OPTION_KEY = "include-ambiguous.option";
-		    
+		    private static String usageMessage = "java -jar %s [options]";
 	  
 	  static HashMap<String, Object> getOptions(String[] args) {
-	    try {
+		// TODO Open messages bundle.
+		  /*
+		   * Try opening message bundle: if it fails, we're screwed. Otherwise,
+		   * we still have localized messages for errors below.
+		   */
+		  org.apache.commons.cli.Options opts = null;
+		  ResourceBundle messageBundle = null;
+		  
+	      try { 
+	    	  messageBundle = ResourceBundle.getBundle(MESSAGES_BUNDLE);
+	      } catch (MissingResourceException ex) {
+	    	System.out.println(FATAL_MESSAGE);
+	    	return null;
+	      }try {
 	    	ResourceBundle bundle = ResourceBundle.getBundle(OPTIONS_DESCRIPTION_BUNDLE);
+	    	
 	    	Option helpOption = Option.builder("?").longOpt("help")
 	    										   .hasArg(false)
 	    										   .desc(bundle.getString(HELP_OPTION_KEY))
@@ -90,8 +108,8 @@ public class Options {
 	                                                 .numberOfArgs(1)
 	                                                 .type(String.class)
 	                                                 .build();
-	      org.apache.commons.cli.Options opts 
-	          = new org.apache.commons.cli.Options().addOption(helpOption)
+	      
+	        opts  = new org.apache.commons.cli.Options().addOption(helpOption)
 	                                                .addOption(excludeUpperOption)
 	                                                .addOption(excludeLowerOption)
 	                                                .addOption(excludeDigitsOption)
@@ -104,21 +122,51 @@ public class Options {
 	      DefaultParser parser = new DefaultParser();
 	      HashMap<String, Object> map = new HashMap<>();
 	      CommandLine cmdLine = parser.parse(opts, args);
-	      if (cmdLine.hasOption('?')) {
-	    	  new HelpFormatter().printHelp("These are the options", opts); // FIXME Take message from resources
-	      }
+	     
+	     
 	      for (Option option : cmdLine.getOptions()) {
 	        String opt = option.getOpt(); 
 	        map.put(opt, cmdLine.getParsedOptionValue(opt));
+	        // TODO Perform additional validation on option values, including checking for extreme values.
+	        // TODO Check for option conflicts.
+	      } 
+	      if (cmdLine.hasOption('?')) {
+	    	  display (null, usageMessage, opts);
+	    	  
 	      }
 	      return map;
-	    } catch (ParseException ex) {
+	      
+	    }  catch (MissingArgumentException ex) {
+	    
+	    	Option missing = ex.getOption();
+	    	String optName = missing.getOpt();
+	    	String message = messageBundle.getString(MISSING_ARGUMENT_KEY);
+	    	message = String.format(message, optName);
+	    	display (message, usageMessage, opts);
+	    	return null;
+	    }  catch (UnrecognizedOptionException ex) {
+	    	return null;
+	    }  catch (ParseException ex) {
+	    	// TODO Display error and usage.
+	    	return null;
 	      // TODO Handle this exception with a usage display.
-	      return null;
+	      
+	    }  catch (MissingResourceException ex) {
+	    	// TODO Display error message like incomplete installation.
+	    	return null;
 	    }
+ 
 	  }
 
+	private static void display(String message,String usage, org.apache.commons.cli.Options opts) {
+		if (message != null) {
+			System.out.println(message);
+		}
+		new HelpFormatter().printHelp(message, opts);
+		
 	}
+
+}
 
 // TODO Put keys in options.properties add warnings to messages. Option in conflict, password mode delimiter,
 //password mode word case, extreme length
