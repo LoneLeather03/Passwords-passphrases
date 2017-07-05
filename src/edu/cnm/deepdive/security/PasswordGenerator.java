@@ -17,6 +17,10 @@ import java.util.Random;
  */
 public class PasswordGenerator {
 	
+	
+	public static final int DEFAULT_PASSWORD_LENGTH = 12;
+	
+	
 	private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private static final String LOWERCASE = UPPERCASE.toLowerCase();
 	private static final String NUMBERS = "0123456789";
@@ -28,11 +32,11 @@ public class PasswordGenerator {
 	private int maxLength = 12; 
 	/** Standard (not cryptographically secure) pseudo */ 
 	protected Random rng;
-	private boolean includeUpperCase = true;
-	private boolean includeLowerCase = true;
-	private boolean includeNumbers = true;
-	private boolean includePunctuation = true;
-	private boolean excludeAmbiguous = true;
+	private boolean upperCaseIncluded = true;
+	private boolean lowerCaseIncluded = true;
+	private boolean numbersIncluded = true;
+	private boolean punctuationIncluded = true;
+	private boolean ambiguousExcluded = true;
 	private String delimiter = "";
 
 	/**
@@ -84,11 +88,11 @@ public class PasswordGenerator {
 			boolean IncludeNumbers, boolean IncludePunctuation,
 			boolean ExcludeAmbiguous) {
 		this(minLength, maxLength);
-			this.includeUpperCase = includeUpperCase;
-			this.includeLowerCase = includeLowerCase;
-			this.includeNumbers = includeNumbers;
-			this.includePunctuation = includePunctuation;
-			this.excludeAmbiguous = excludeAmbiguous;
+			this.setUpperCaseIncluded(upperCaseIncluded);
+			this.setLowerCaseIncluded(lowerCaseIncluded);
+			this.setNumbersIncluded(numbersIncluded);
+			this.setPunctuationIncluded(punctuationIncluded);
+			this.setAmbiguousExcluded(ambiguousExcluded);
 			
 			
 			/**
@@ -132,20 +136,20 @@ public class PasswordGenerator {
 	private void setUpPool() {
 		if (pool == null) {
 		  StringBuilder builder = new StringBuilder();
-		  if (includeLowerCase) {
+		  if (isLowerCaseIncluded()) {
 			  builder.append(LOWERCASE);
 		  }
-		  if (includeUpperCase) {
+		  if (isUpperCaseIncluded()) {
 			  builder.append(UPPERCASE);
 		  }
-		  if (includeNumbers) {
+		  if (isNumbersIncluded()) {
 			  builder.append(NUMBERS);
 		  }
-		  if (includePunctuation) {
+		  if (isPunctuationIncluded()) {
 			  builder.append(PUNCTUATION);
 		  }
 		  String work =  builder.toString();
-		  if (excludeAmbiguous) {
+		  if (isAmbiguousExcluded()) {
 			 work.replaceAll(AMBIGUOUS, "");
 		  }
 		  pool = work.toCharArray();
@@ -166,6 +170,66 @@ public class PasswordGenerator {
 		}
 		return builder.toString();
 		
+	}
+	/**
+	 * @return the upperCaseIncluded
+	 */
+	public boolean isUpperCaseIncluded() {
+		return upperCaseIncluded;
+	}
+	/**
+	 * @param upperCaseIncluded the upperCaseIncluded to set
+	 */
+	public void setUpperCaseIncluded(boolean upperCaseIncluded) {
+		this.upperCaseIncluded = upperCaseIncluded;
+	}
+	/**
+	 * @return the lowerCaseIncluded
+	 */
+	public boolean isLowerCaseIncluded() {
+		return lowerCaseIncluded;
+	}
+	/**
+	 * @param lowerCaseIncluded the lowerCaseIncluded to set
+	 */
+	public void setLowerCaseIncluded(boolean lowerCaseIncluded) {
+		this.lowerCaseIncluded = lowerCaseIncluded;
+	}
+	/**
+	 * @return the numbersIncluded
+	 */
+	public boolean isNumbersIncluded() {
+		return numbersIncluded;
+	}
+	/**
+	 * @param numbersIncluded the numbersIncluded to set
+	 */
+	public void setNumbersIncluded(boolean numbersIncluded) {
+		this.numbersIncluded = numbersIncluded;
+	}
+	/**
+	 * @return the punctuationIncluded
+	 */
+	public boolean isPunctuationIncluded() {
+		return punctuationIncluded;
+	}
+	/**
+	 * @param punctuationIncluded the punctuationIncluded to set
+	 */
+	public void setPunctuationIncluded(boolean punctuationIncluded) {
+		this.punctuationIncluded = punctuationIncluded;
+	}
+	/**
+	 * @return the ambiguousExcluded
+	 */
+	public boolean isAmbiguousExcluded() {
+		return ambiguousExcluded;
+	}
+	/**
+	 * @param ambiguousExcluded the ambiguousExcluded to set
+	 */
+	public void setAmbiguousExcluded(boolean ambiguousExcluded) {
+		this.ambiguousExcluded = ambiguousExcluded;
 	}
 
 }

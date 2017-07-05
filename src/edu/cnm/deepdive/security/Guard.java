@@ -4,6 +4,7 @@
 package edu.cnm.deepdive.security;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -35,13 +36,45 @@ public class Guard {
 	    if (map.containsKey("m")) {
 	      PasswordGenerator gen = new SecurePasswordGenerator();
 	      // TODO Set fields for all specified options.
+	      for (Map.Entry<String, Object> entry : map.entrySet()) {
+	    	  switch (entry.getKey()) {
+	    	  case "L":
+	    	  int length = ((Number) entry.getValue()).intValue();
+	    	  gen.setMinLength(length);
+	    	  gen.setMaxLength(length);
+	    	  break;
+	    	  case "a":
+	    	  gen.setAmbiguousExcluded(false);
+	    	  break;
+	    	  case "b":
+	    	  gen.setUpperCaseIncluded(false);
+	    	  break;
+	    	  case "s":
+	    	  gen.setLowerCaseIncluded(false);
+	    	  break;
+	    	  case "n":
+	    	  gen.setNumbersIncluded(false);
+	    	  break;
+	    	  case "p":
+	    	  gen.setPunctuationIncluded(false);
+	    	  break;
+	    	  default:
+	    		  break;
+	    	  
+	    	  }
+	    	  
+	      }
 	      return gen.generate();
+	    } else {
+	    	PassphraseGenerator gen = new PassphraseGenerator();
+	    	// TODO Set fields for all relevant and specified options.
+	    	return gen.generate();
 	    }
-	    return null;
+	  
 	  }
 	  
 	  static void emitArtifact(String artifact) {
-	    // TODO Make this smarter.
+	   
 	    System.out.println(artifact);
 	  }
 	  
