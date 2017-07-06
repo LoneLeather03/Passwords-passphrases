@@ -13,7 +13,6 @@ import java.util.Map;
  * Pass command line arguments to a parser from Apache Commons library
  * then instantiate and invoke the appropriate classes and methods to 
  * generate the requested artifact.
- * @param args Command line arguments, specifying generation options.
  */
 public class Guard {
 

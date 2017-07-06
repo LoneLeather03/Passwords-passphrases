@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
  *
  */
 public class PassphraseGenerator {
-	/** */
+	/** Constant for word list resource. */
 	public static final String DEFAULT_WORD_LIST = "resources/wordlist";
-	/** */
+	/** Constant for delimiter field. */
 	public static final String DEFAULT_DELIMITER = " ";
-	/** */
+	/** Constant for default length field. */
 	public static final int DEFAULT_LENGTH = 6;
 	
 	
@@ -32,12 +32,12 @@ public class PassphraseGenerator {
 	
 	
 	/**
-	 * 
+	 * Generate passphrase.
 	 */
 	public PassphraseGenerator() {
 		super();
 	}
-	
+	/** Resource draw for passphrase. */
 	protected void setUpPool() {
 		ResourceBundle bundle = ResourceBundle.getBundle(wordList);
 		pool = new ArrayList<>();
@@ -49,11 +49,11 @@ public class PassphraseGenerator {
 		}
 			
 		}
-	
+	/** Invokes secure random number generator. */
 	protected void setUpRng() {
 		rng = new SecureRandom();
 	}
-	
+	/** Return passphrase. */
 	public String generate() {
 		if (pool == null) {
 			setUpPool();
@@ -62,10 +62,12 @@ public class PassphraseGenerator {
 			setUpRng();
 		}
 		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < length; i++) {
-			String word = pool.get(rng.nextInt(pool.size()));
+		String word = pool.get(rng.nextInt(pool.size()));
+		builder.append(word);
+		for (int i = 0; i < length - 1; i++) {
+		    word = pool.get(rng.nextInt(pool.size()));
+			builder.append(delimiter + word);
 			builder.append(word);
-			builder.append(delimiter);
 		}
 		return builder.toString().trim();
 	}

@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class PasswordGenerator {
 	
-	
+	/** Constant for default password length.  */
 	public static final int DEFAULT_PASSWORD_LENGTH = 12;
 	
 	

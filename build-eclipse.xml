@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Passwords-passphrases">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../Downloads/eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="Apache Commons CLI.userclasspath">
+        <pathelement location="../../libraries/commons-cli-1.4/commons-cli-1.4.jar"/>
+    </path>
+    <path id="Passwords-passphrases.classpath">
+        <pathelement location="bin"/>
+        <path refid="Apache Commons CLI.userclasspath"/>
+    </path>
+    <path id="run.[Scrapbook] scratchpad.jpage.classpath">
+        <pathelement location="../../../../Downloads/eclipse/configuration/org.eclipse.osgi/384/0/.cp/snippetsupport.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Passwords-passphrases.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="Guard">
+        <java classname="edu.cnm.deepdive.security.Guard" failonerror="true" fork="yes">
+            <arg line="--d &quot;-&quot;"/>
+            <classpath refid="Passwords-passphrases.classpath"/>
+        </java>
+    </target>
+    <target name="[Scrapbook] scratchpad.jpage">
+        <java classname="org.eclipse.jdt.internal.debug.ui.snippeteditor.ScrapbookMain" failonerror="true" fork="yes">
+            <arg line=" file:/C:/Users/crazy/Desktop/Java+Bootcamp/projects/.metadata/.plugins/org.eclipse.core.resources/.projects/Passwords-passphrases/org.eclipse.jdt.debug.ui/ file:/C:/Users/crazy/Desktop/Java+Bootcamp/projects/Passwords-passphrases/bin/ file:/C:/Users/crazy/Desktop/Java+Bootcamp/libraries/commons-cli-1.4/commons-cli-1.4.jar"/>
+            <classpath refid="run.[Scrapbook] scratchpad.jpage.classpath"/>
+        </java>
+    </target>
+</project>

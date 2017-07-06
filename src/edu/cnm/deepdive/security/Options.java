@@ -29,7 +29,7 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 public class Options {
 	
 	
-	        
+	        /** Constants for phrase length and password length.  */
 			public static final int MAXIMUM_RECOMMENDED_PASSPHRASE_LENGTH = 10;
 			public static final int MINIMUM_RECOMMENDED_PASSPHRASE_LENGTH = 6;
 			public static final int MAXIMUM_RECOMMENDED_PASSWORD_LENGTH = 16;
@@ -91,23 +91,6 @@ public class Options {
 	      if (map != null) {
 	    	  validateCommandLine(map, messageBundle);
 	    	  }
-	      
-//	      int length = ((Number) map.get("L")).intValue();
-//	      if (cmdLine.hasOption("m")) {
-//	    	  if (length < 5) {
-//	    		  System.out.println(messageBundle.getString(PASSWORD_EXTREME_LENGTH_WARNING));
-//	    		  if (length > 16) {
-//	    			  System.out.println(messageBundle.getString(PASSWORD_EXTREME_LENGTH_WARNING));
-//	    		  } else {
-//	    			  if (length < 5) {
-//	    				  System.out.print("pp.warning.length.message");
-//	    				  if (length > 10) {
-//	    					  System.out.println("pp.warning.extremelength.message");
-//	    				  }
-//	    			  }
-//	    		  }
-//	    	  }
-//	      }
 	      
 	      return map;
 	      
