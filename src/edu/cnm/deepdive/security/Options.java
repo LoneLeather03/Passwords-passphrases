@@ -44,7 +44,7 @@ public class Options {
 			private static final String PASSWORD_OPTIONS_CONFLICT_WARNING = "pw.opts.conflict.warning.message";
 			private static final String AMBIGUOUS_CHARACTER_WARNING = "pw.warning.ambiguous.message";
 			private static final String LENGTH_ERROR ="error.length.message";
-			private static final String PASSPHRASE_LENGTH_ERROR ="pp.error.numwords.message";
+		//	private static final String PASSPHRASE_LENGTH_ERROR ="pp.error.numwords.message";
 			private static final String RESERVED_CHARACTER_ERROR ="pp.error.reserved.message";
 			private static final String WORD_LIST_ERROR = "pp.error.list.message";
 			public static final String  JAR_FILE_NAME = "guard.jar";

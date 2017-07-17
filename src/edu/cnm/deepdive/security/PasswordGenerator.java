@@ -37,7 +37,7 @@ public class PasswordGenerator {
 	private boolean numbersIncluded = true;
 	private boolean punctuationIncluded = true;
 	private boolean ambiguousExcluded = true;
-	private String delimiter = "";
+//  private String delimiter = "";
 
 	/**
 	 * Test rig for generating passwords
