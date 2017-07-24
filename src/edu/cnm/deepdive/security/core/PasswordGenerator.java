@@ -2,7 +2,7 @@
  * PasswordGenerator.java
  */
 
-package edu.cnm.deepdive.security;
+package edu.cnm.deepdive.security.core;
 
 import java.util.Random;
 
@@ -113,7 +113,7 @@ public class PasswordGenerator {
 	 * Set max password length.
 	 * @param maxLength the maxLength to set
 	 */
-	protected void setMaxLength(int maxLength) {
+	public void setMaxLength(int maxLength) {
 		this.maxLength = maxLength;
 	}
 
@@ -129,7 +129,7 @@ public class PasswordGenerator {
 	 * Set min password length.
 	 * @param minLength the minLength to set
 	 */
-	protected void setMinLength(int minLength) {
+	public void setMinLength(int minLength) {
 		this.minLength = minLength;
 	}
 	

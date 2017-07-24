@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cnm.deepdive.security;
+package edu.cnm.deepdive.security.core;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class PassphraseGenerator {
 		ResourceBundle bundle = ResourceBundle.getBundle(wordList);
 		pool = new ArrayList<>();
 		Enumeration<String> keyEnum = bundle.getKeys();
-		while ( keyEnum.hasMoreElements()); {
+		while ( keyEnum.hasMoreElements()) {
 			String key = keyEnum.nextElement();
 			String word = bundle.getString(key);
 			pool.add(word);
@@ -66,7 +66,7 @@ public class PassphraseGenerator {
 		builder.append(word);
 		for (int i = 0; i < length - 1; i++) {
 		    word = pool.get(rng.nextInt(pool.size()));
-			builder.append(delimiter + word);
+			builder.append(delimiter);
 			builder.append(word);
 		}
 		return builder.toString().trim();

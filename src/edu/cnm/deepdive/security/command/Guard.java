@@ -1,11 +1,13 @@
 /**
  * 
  */
-package edu.cnm.deepdive.security;
-
+package edu.cnm.deepdive.security.command;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.cnm.deepdive.security.core.PassphraseGenerator;
+import edu.cnm.deepdive.security.core.PasswordGenerator;
+import edu.cnm.deepdive.security.core.SecurePasswordGenerator;
 
 
 /**
